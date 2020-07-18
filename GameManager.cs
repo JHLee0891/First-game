@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public Text scoreText;
     public Image[] lifeImage;
+    public Image[] boomImage;
     public GameObject gameOverSet;
 
     void Update()
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
         if (curSpawnDelay > maxSpawnDelay)
         {
             SpawnEnemy();
-            maxSpawnDelay = UnityEngine.Random.Range(0.3f, 1.5f);
+            maxSpawnDelay = UnityEngine.Random.Range(0.3f, 2.7f);
             curSpawnDelay = 0;
         }
 
@@ -71,6 +72,22 @@ public class GameManager : MonoBehaviour
             lifeImage[index].color = new Color(1, 1, 1, 1);
         }
     }
+
+    public void UpdateBoomIcon(int boom)
+    {
+        //#.UI Boom Init Disable
+        for (int index = 0; index < 3; index++)
+        {
+            boomImage[index].color = new Color(1, 1, 1, 0);
+        }
+
+        //#.UI Boom Active
+        for (int index = 0; index < boom; index++)
+        {
+            boomImage[index].color = new Color(1, 1, 1, 1);
+        }
+    }
+
     public void RespawnPlayer()
     {
         Invoke("RespawnPlayerExe", 2f);
