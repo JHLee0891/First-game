@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject[] enemyObjs;
+    public string[] enemyObjs;
     public Transform[] spawnPoints;
 
     public float maxSpawnDelay;
@@ -21,6 +21,12 @@ public class GameManager : MonoBehaviour
     public Image[] lifeImage;
     public Image[] boomImage;
     public GameObject gameOverSet;
+    public ObjectManager objectManager;
+
+    private void Awake()
+    {
+        enemyObjs = new string[] { "EnemyS", "EnemyM", "EnemyL" };
+    }
 
     void Update()
     {
@@ -41,12 +47,13 @@ public class GameManager : MonoBehaviour
     {
         int ranEnemy = UnityEngine.Random.Range(0, 3);
         int ranPoint = UnityEngine.Random.Range(0, 9);
-        GameObject enemy = Instantiate(enemyObjs[ranEnemy],
-                            spawnPoints[ranPoint].position,
-                            spawnPoints[ranPoint].rotation);
+        GameObject enemy = objectManager.MakeObj(enemyObjs[ranEnemy]);
+        enemy.transform.position = spawnPoints[ranPoint].position;
+
         Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
         Enemy enemyLogic = enemy.GetComponent<Enemy>();
         enemyLogic.player = player;
+        enemyLogic.objectManager = objectManager;
 
         if (ranPoint == 5 || ranPoint == 6) {  //#.Right Spawn
             enemy.transform.Rotate(Vector3.back * 90);

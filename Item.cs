@@ -10,14 +10,17 @@ public class Item : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        rigid.velocity = Vector2.down * 0.5f;
     }
 
+    void OnEnable()
+    {
+        rigid.velocity = Vector2.down * 1.5f;
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {   //#.Border For Item
         if (collision.gameObject.tag == "BorderBullet")
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
