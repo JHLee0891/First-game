@@ -50,10 +50,10 @@ public class GameManager : MonoBehaviour
         GameObject enemy = objectManager.MakeObj(enemyObjs[ranEnemy]);
         enemy.transform.position = spawnPoints[ranPoint].position;
 
-
         Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
         Enemy enemyLogic = enemy.GetComponent<Enemy>();
         enemyLogic.player = player;
+        enemyLogic.objectManager = objectManager;
 
         if (ranPoint == 5 || ranPoint == 6) {  //#.Right Spawn
             enemy.transform.Rotate(Vector3.back * 90);

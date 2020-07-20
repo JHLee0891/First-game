@@ -10,8 +10,5 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.tag == "BorderBullet") {
             gameObject.SetActive(false);
         }
-
-
-
     }
 }
