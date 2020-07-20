@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
         GameObject[] bullets = GameObject.FindGameObjectsWithTag("EnemyBullet");
         for (int index = 0; index < bullets.Length; index++)
         {
-            Destroy(bullets[index]);
+            gameObject.SetActive(false);
         }
     }
 
@@ -181,7 +181,7 @@ public class Player : MonoBehaviour
             }
 
             gameObject.SetActive(false);
-            Destroy(collision.gameObject);
+            
         }
         else if(collision.gameObject.tag == "Item") {
             Item item = collision.gameObject.GetComponent<Item>();
@@ -205,7 +205,7 @@ public class Player : MonoBehaviour
                     }
                     break;
             }
-            Destroy(collision.gameObject);
+            gameObject.SetActive(false);
         }
     }
 

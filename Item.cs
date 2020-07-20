@@ -17,7 +17,7 @@ public class Item : MonoBehaviour
     {   //#.Border For Item
         if (collision.gameObject.tag == "BorderBullet")
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

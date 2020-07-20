@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0) {
             Player playerLogic = player.GetComponent<Player>();
             playerLogic.score += enemyScore;
-            Destroy(gameObject);
+            gameObject.SetActive(false);
 
             //#.Random Ratio Item Drop
             int ran = Random.Range(0, 10);
@@ -102,7 +102,7 @@ public class Enemy : MonoBehaviour
                 Instantiate(itemBoom, transform.position, itemCoin.transform.rotation);
             }
 
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -114,12 +114,12 @@ public class Enemy : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "BorderBullet")
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         else if (collision.gameObject.tag == "PlayerBullet") {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
             OnHit(bullet.dmg);
 
-            Destroy(collision.gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
