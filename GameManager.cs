@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public Image[] lifeImage;
     public Image[] boomImage;
     public GameObject gameOverSet;
+    public ObjectManager objectManager;
 
     void Update()
     {
