@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
 
     public bool isHit;
     public bool isBoomTime;
+
+    public GameObject[] followers;
     Animator anim;
 
     void Awake()
@@ -95,7 +97,7 @@ public class Player : MonoBehaviour
                 rigidR.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 rigidL.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 break;
-            case 3:
+            default:
                 GameObject bulletRR = objectManager.MakeObj("BulletPlayerA");
                 bulletRR.transform.position = transform.position + Vector3.right * 0.3f;
 
@@ -211,7 +213,6 @@ public class Player : MonoBehaviour
 
             if (isHit)
                 return;
-
             collision.gameObject.SetActive(false);
 
             isHit = true;
@@ -234,10 +235,13 @@ public class Player : MonoBehaviour
                     score += 1000;
                     break;
                 case "Power":
-                    if(power == maxPower)
+                    if (power == maxPower)
                         score += 500;
                     else
+                    {
                         power++;
+                        AddFollower();
+                    }
                     break;
                 case "Boom":
                     if (boom == maxBoom)
@@ -253,11 +257,22 @@ public class Player : MonoBehaviour
         }
     }
 
+    void AddFollower()
+    {
+        if (power == 4)
+            followers[0].SetActive(true);
+        else if (power == 5)
+            followers[1].SetActive(true);
+        else if (power == 6)
+            followers[2].SetActive(true);
+    }
+
     void OffBoomEffect()
     {
         boomEffect.SetActive(false);
         isBoomTime = false;
     }
+
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Border")
